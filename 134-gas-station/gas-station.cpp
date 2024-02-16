@@ -10,7 +10,7 @@ public:
             balance += gas[i] - cost[i];
             if(balance < 0)
             {
-                deficit += balance;
+                deficit += balance; // spetial attention
                 start = i + 1;
                 balance = 0;
             }
