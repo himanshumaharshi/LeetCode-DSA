@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    void solve(TreeNode* root, int targetSum, int currSum, vector<int> path, vector<vector<int>> &ans){
+    void solve(TreeNode* root, int targetSum, int &currSum, vector<int> &path, vector<vector<int>> &ans){
         // base case
         if (root == NULL)
             return;
@@ -25,14 +25,23 @@ public:
             if (currSum == targetSum) {
                 ans.push_back(path);
             }
+            // exclude current node
+            path.pop_back();
+            currSum -= root->val;
             return;
         }
 
         // include current node
         path.push_back(root->val);
         currSum += root->val;
+
+        // recursive call
         solve(root->left, targetSum, currSum, path, ans);
         solve(root->right, targetSum, currSum, path, ans);
+
+        // exclude current node
+        path.pop_back();
+        currSum -= root->val;
     }
 
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
