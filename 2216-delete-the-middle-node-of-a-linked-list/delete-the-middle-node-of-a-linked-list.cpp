@@ -30,10 +30,12 @@ public:
             head = NULL;
             return head;
         }
-        ListNode* temp = prevNode->next;
-        prevNode->next = prevNode->next->next;
-        temp->next = NULL;
-        delete temp;
-        return head;
+        else {
+            ListNode* temp = prevNode->next;
+            prevNode->next = prevNode->next->next;
+            temp->next = NULL;
+            delete temp;
+            return head;
+        }
     }
 };
