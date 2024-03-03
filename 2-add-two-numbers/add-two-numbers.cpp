@@ -24,17 +24,9 @@ public:
         }
         return prevNode;
     }
-
-    // ListNode *solve(ListNode *&head1, ListNode *&head2)
-    // {
-
-    // }
+    
     ListNode* addTwoNumbers(ListNode* head1, ListNode* head2) {
-        // 1. reverse both linked list
-        // head1 = reverse(head1);
-        // head2 = reverse(head2);
-
-        // 2. add both linked list
+        // add both linked list
         ListNode *ansHead = NULL;
         ListNode *ansTail = NULL;
         int carry = 0;
