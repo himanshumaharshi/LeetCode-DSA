@@ -1,7 +1,7 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        // brute force approach T.C -> O(n * m), S.C -> O(1)
+        // T.C -> O(n * m), S.C -> O(1)
         string ans = "";
         // loop on first string
         for (int i = 0; i < strs[0].length(); i++)
