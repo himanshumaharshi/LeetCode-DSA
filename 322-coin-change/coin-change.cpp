@@ -50,10 +50,28 @@ public:
     }
 
     // bottomUp (Tabulation Method) approach of Dynamic Programming
-    // int bottomDownSolveDP
+    int bottomUpSolveDP(vector<int>& coins, int amount) {
+        // step 1: create dp array
+        vector<int> dp(amount + 1, INT_MAX);
+
+        // step 2: observe base case of recursive solution
+        dp[0] = 0;
+
+        // step 3: check the range and flow of top down apporach the iterate and calculate answer accoringly
+        for (int target = 1; target <= amount; target++) {
+            for (int j = 0; j < coins.size(); j++) {
+                if (target - coins[j] >= 0 && dp[target - coins[j]] != INT_MAX) {
+                    int ans = dp[target - coins[j]];
+                    dp[target] = min(dp[target], ans + 1);
+                }
+            }
+        }
+        return dp[amount];
+    }
     
     int coinChange(vector<int>& coins, int amount) {
         // -------- Recursive Approach --------
+        // T.C ---> Exponential
         // int ansRecursive = recursiveSolve(coins, amount);
         // if (ansRecursive == INT_MAX)
         //     return -1;
@@ -61,18 +79,21 @@ public:
         //     return ansRecursive;
     
         // -------- Dynamic Programming (Top Down Approach) --------
-        // T.C ---> O(n), S.C ---> O(n + n) = O(n)
+        // T.C ---> O(amount)(linear), S.C ---> O(n + n) = O(n)
         // step 1: create dp array
-        vector<int> dp(amount + 1, -1);
-        int ansTopDown = topDownSolveDP(coins, amount, dp);
-        if (ansTopDown == INT_MAX)
-            return -1;
-        else
-            return ansTopDown;
+        // vector<int> dp(amount + 1, -1);
+        // int ansTopDown = topDownSolveDP(coins, amount, dp);
+        // if (ansTopDown == INT_MAX)
+        //     return -1;
+        // else
+        //     return ansTopDown;
 
         // -------- Dynamic Programming (Bottom Down Approach) --------
-        // T.C ---> O(n), S.C ---> O(n)
-        // int ansBottomUp = bottomDownSolveDP(n);
-        // return ansBottomUp;
+        // T.C ---> O(amount), S.C ---> O(n)
+        int ansBottomUp = bottomUpSolveDP(coins, amount);
+        if (ansBottomUp == INT_MAX)
+            return -1;
+        else
+            return ansBottomUp;
     }
 };
