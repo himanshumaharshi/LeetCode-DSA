@@ -29,7 +29,7 @@ public:
     }
 
     // bottomUp (Tabulation Method) approach of Dynamic Programming
-    int bottomDownSolveDP (int n) {
+    int bottomUpSolveDP (int n) {
         // step 1: create dp array
         vector<int> dp(n + 1, -1);
 
@@ -84,7 +84,7 @@ public:
 
         // -------- Dynamic Programming (Bottom Down Approach) --------
         // T.C ---> O(n), S.C ---> O(n)
-        // int ansBottomUp = bottomDownSolveDP(n);
+        // int ansBottomUp = bottomUpSolveDP(n);
         // return ansBottomUp;
 
         // -------- Space Optimized Approacn --------
