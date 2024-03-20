@@ -37,8 +37,6 @@ public:
         // disconnect end node from list1
         end->next = NULL;
 
-        cout << "start: " << start->val << endl;
-        cout << "end: " << end->val << endl;
         return list1;
     }
 };
