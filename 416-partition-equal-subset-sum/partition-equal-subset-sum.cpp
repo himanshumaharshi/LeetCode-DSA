@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // recursive approach (will give TLE error)
     bool solveUsingRecursion(int index, vector<int>& nums, int target) {
         // base case
         if (index >= nums.size()) {
@@ -23,8 +24,9 @@ public:
         return (include || exclude);
     }
 
+    // dynamic programming top down approach
     bool memoizationSolve(int index, vector<int>& nums, int target,
-                          vector<vector<int>> dp) {
+                          vector<vector<int>>& dp) {
         // base case
         if (index >= nums.size()) {
             // index out of range
@@ -52,6 +54,7 @@ public:
         return dp[index][target];
     }
 
+    // dynamic programming bottom up approach
     bool tabulationSolve(vector<int>& nums, int target) {
         // step 1: create dp array
         vector<vector<int>> dp(nums.size() + 1, vector<int>(target + 1, 0));
@@ -76,7 +79,6 @@ public:
                 dp[index][key] = (include || exclude);
             }
         }
-
         return dp[0][target];
     }
 
@@ -101,14 +103,14 @@ public:
         // -------- Dynamic Programming (Top Down Approach / Memoization)
         // -------- T.C ---> O(n), S.C ---> O(n + n) -> O(n) step 1: create dp
         // array
-        // vector<vector<int>> dp(nums.size(), vector<int>(target + 1, -1));
-        // bool ansMemoization = memoizationSolve(index, nums, target, dp);
-        // return ansMemoization;
+        vector<vector<int>> dp(nums.size(), vector<int>(target + 1, -1));
+        bool ansMemoization = memoizationSolve(index, nums, target, dp);
+        return ansMemoization;
 
         // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
         // -------- T.C ---> O(index * capacity), S.C ---> O(index * capacity)
-        bool ansTabulation = tabulationSolve(nums, target);
-        return ansTabulation;
+        // bool ansTabulation = tabulationSolve(nums, target);
+        // return ansTabulation;
 
         // -------- Space Optimized Approach 1 --------
         // T.C ---> O(index * capacity), S.C ---> O(capacity)
