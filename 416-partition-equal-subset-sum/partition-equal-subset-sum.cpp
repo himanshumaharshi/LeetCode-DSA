@@ -82,6 +82,36 @@ public:
         return dp[0][target];
     }
 
+    // space optimized approach
+    bool spaceOptimized(vector<int>& nums, int target) {
+        // step 1: create dp array
+        vector<bool> curr(target + 1, 0);
+        vector<bool> next(target + 1, 0);
+
+        // step 2: observe base case of recursive solution
+        curr[0] = 1;
+        next[0] = 1;
+
+        // step 3: check the range and flow of top down apporach the iterate and calculate answer accoringly
+        for (int index = nums.size() - 1; index >= 0; index--) {
+            for (int key = 1; key <= target; key++) {
+                bool include = 0;
+
+                if (key - nums[index] >= 0) {
+                    include = next[key - nums[index]];
+                }
+
+                bool exclude = next[key];
+                
+                // store answer in dp array
+                curr[key] = (include || exclude);
+            }
+            // shifting
+            next = curr;
+        }
+        return curr[target];
+    }
+
     bool canPartition(vector<int>& nums) {
         int sum = 0;
         for (int i = 0; i < nums.size(); i++) {
@@ -101,20 +131,20 @@ public:
         // return ansRecursive;
 
         // -------- Dynamic Programming (Top Down Approach / Memoization)
-        // -------- T.C ---> O(n), S.C ---> O(n + n) -> O(n) step 1: create dp
-        // array
-        vector<vector<int>> dp(nums.size(), vector<int>(target + 1, -1));
-        bool ansMemoization = memoizationSolve(index, nums, target, dp);
-        return ansMemoization;
+        // -------- T.C ---> O(n * m), S.C ---> O(n * m)
+        // step 1: create dp array
+        // vector<vector<int>> dp(nums.size(), vector<int>(target + 1, -1));
+        // bool ansMemoization = memoizationSolve(index, nums, target, dp);
+        // return ansMemoization;
 
         // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
-        // -------- T.C ---> O(index * capacity), S.C ---> O(index * capacity)
+        // -------- T.C ---> O(n * m), S.C ---> O(n * m)
         // bool ansTabulation = tabulationSolve(nums, target);
         // return ansTabulation;
 
-        // -------- Space Optimized Approach 1 --------
-        // T.C ---> O(index * capacity), S.C ---> O(capacity)
-        // int ansOptimized = spaceOptimized(weight, value, index, capacity);
-        // cout << ansOptimized << endl;
+        // -------- Space Optimized Approach --------
+        // T.C ---> O(n * m), S.C ---> O(m)
+        bool ansOptimized = spaceOptimized(nums, target);
+        return ansOptimized;
     }
 };
