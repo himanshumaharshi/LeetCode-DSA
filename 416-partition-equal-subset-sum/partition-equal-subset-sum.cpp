@@ -82,7 +82,7 @@ public:
         return dp[0][target];
     }
 
-    // space optimized approach
+    // space optimized approach with two different arrays
     bool spaceOptimized(vector<int>& nums, int target) {
         // step 1: create dp array
         vector<bool> curr(target + 1, 0);
@@ -112,6 +112,32 @@ public:
         return curr[target];
     }
 
+    // space optimized approach with only one array
+    bool spaceOptimized2(vector<int>& nums, int target) {
+        // step 1: create dp array
+        vector<bool> curr(target + 1, 0);
+
+        // step 2: observe base case of recursive solution
+        curr[0] = 1;
+
+        // step 3: check the range and flow of top down apporach the iterate and calculate answer accoringly
+        for (int index = nums.size() - 1; index >= 0; index--) {
+            for (int key = target; key >= 1; key--) {
+                bool include = 0;
+
+                if (key - nums[index] >= 0) {
+                    include = curr[key - nums[index]];
+                }
+
+                bool exclude = curr[key];
+                
+                // store answer in dp array
+                curr[key] = (include || exclude);
+            }
+        }
+        return curr[target];
+    }
+
     bool canPartition(vector<int>& nums) {
         int sum = 0;
         for (int i = 0; i < nums.size(); i++) {
@@ -127,24 +153,24 @@ public:
 
         // -------- Recursive Approach --------
         // T.C ---> Exponential (2^n), S.C ---> O(n)
-        // bool ansRecursive = solveUsingRecursion(index, nums, target);
-        // return ansRecursive;
+        // return solveUsingRecursion(index, nums, target);
 
         // -------- Dynamic Programming (Top Down Approach / Memoization)
         // -------- T.C ---> O(n * m), S.C ---> O(n * m)
         // step 1: create dp array
         // vector<vector<int>> dp(nums.size(), vector<int>(target + 1, -1));
-        // bool ansMemoization = memoizationSolve(index, nums, target, dp);
-        // return ansMemoization;
+        // return memoizationSolve(index, nums, target, dp);
 
         // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
         // -------- T.C ---> O(n * m), S.C ---> O(n * m)
-        // bool ansTabulation = tabulationSolve(nums, target);
-        // return ansTabulation;
+        // return tabulationSolve(nums, target);
 
         // -------- Space Optimized Approach --------
         // T.C ---> O(n * m), S.C ---> O(m)
-        bool ansOptimized = spaceOptimized(nums, target);
-        return ansOptimized;
+        // return spaceOptimized(nums, target);
+
+        // -------- Space Optimized Approach 2 --------
+        // T.C ---> O(n * m), S.C ---> O(m)
+        return spaceOptimized2(nums, target);
     }
 };
