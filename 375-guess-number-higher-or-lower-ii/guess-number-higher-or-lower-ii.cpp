@@ -56,21 +56,17 @@ public:
 
     int getMoneyAmount(int n) {
         // -------- Recursive Approach --------
-        // T.C ---> Exponential (2^n), S.C ---> O(n)
+        // T.C ---> Exponential (2 ^ n), S.C ---> O(n²)
         // return solveUsingRecursion(1, n);
 
         // -------- Dynamic Programming (Top Down Approach / Memoization)
-        // -------- T.C ---> O(n * m), S.C ---> O(n * m)
+        // -------- T.C ---> O(n³), S.C ---> O(n²) (recursive stack + dp array)
         // step 1: create dp array
         // vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
         // return memoizationSolve(1, n, dp);
 
         // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
-        // -------- T.C ---> O(n * m), S.C ---> O(n * m)
+        // -------- T.C ---> O(n³), S.C ---> O(n²)
         return tabulationSolve(n);
-
-        // -------- Space Optimized Approach --------
-        // T.C ---> O(n * m), S.C ---> O(m)
-        // return spaceOptimized(nums, target);
     }
 };
