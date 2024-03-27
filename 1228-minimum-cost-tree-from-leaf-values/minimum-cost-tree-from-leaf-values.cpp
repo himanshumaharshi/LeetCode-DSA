@@ -56,9 +56,9 @@ public:
                     int ans = INT_MAX;
                     // int maxLeftRight = 0;
                     for (int i = left; i < right; i++) {
-                        // maxLeftRight = maxi[{left, i}] * maxi[{i + 1, right}];
+                        int maxLeftRight = maxi[{left, i}] * maxi[{i + 1, right}];
                         ans = min(ans, 
-                                + maxi[{left, i}] * maxi[{i + 1, right}]
+                                + maxLeftRight
                                 + dp[left][i]
                                 + dp[i + 1][right]);
                     }
