@@ -71,22 +71,50 @@ public:
         return dp[0][0];
     }
 
+    int spaceOptimized(string& text1, string& text2) {
+        vector<int> curr(text2.length() + 1, 0);
+        vector<int> next(text2.length() + 1, 0);
+        
+        for (int i = text1.length() - 1; i >= 0; i--) {
+            for (int j = text2.length() - 1; j >= 0; j--) {
+                int ans = 0;
+                if (text1[i] == text2[j]) {
+                    // if characters of both strings at index i, j matches
+                    ans = 1 + next[j + 1];
+                }
+                else {
+                    // if characters of both strings at index i, j doen not matches
+                    ans = 0 + max(curr[j + 1], next[j]);
+                }
+                curr[j] = ans;
+            }
+            // shifting
+            next = curr;
+        }
+        
+        return next[0];
+    }
+
     int longestCommonSubsequence(string text1, string text2) {
         int i = 0;
         int j = 0;
 
         // -------- Recursive Approach --------
-        // T.C ---> Exponential (2 ^ n), S.C ---> O(n²)
+        // T.C ---> Exponential (2 ^ n), S.C ---> O(n * m)
         // return solveUsingRecursion(text1, text2, i, j);
 
-        // -------- Dynamic Programming (Top Down Approach / Memoization)
-        // -------- T.C ---> O(n * m), S.C ---> O(n * m) (recursive stack + dp array)
+        // -------- Dynamic Programming (Top Down Approach / Memoization) --------
+        // T.C ---> O(n * m), S.C ---> O(n * m) (recursive stack + dp array)
         // step 1: create dp array
         // vector<vector<int>> dp(text1.length() + 1, vector<int>(text2.length() + 1, -1));
         // return memoizationSolve(text1, text2, i, j, dp);
 
-        // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
-        // -------- T.C ---> O(n³), S.C ---> O(n²)
-        return tabulationSolve(text1, text2);
+        // -------- Dynamic Programming (Bottom Up Approach / Tabulation) -------- 
+        // T.C ---> O(n * m), S.C ---> O(n * m)
+        // return tabulationSolve(text1, text2);
+
+        // -------- Space Optimized Approach -------- 
+        // T.C ---> O(n * m), S.C ---> O(2m) = O(m)
+        return spaceOptimized(text1, text2);
     }
 };
