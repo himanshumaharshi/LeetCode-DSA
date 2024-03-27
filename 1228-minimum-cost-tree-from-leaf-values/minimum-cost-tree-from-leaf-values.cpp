@@ -54,13 +54,10 @@ public:
                 }
                 else {
                     int ans = INT_MAX;
-                    // int maxLeftRight = 0;
                     for (int i = left; i < right; i++) {
+                        // get the maximum product from left and right subtree
                         int maxLeftRight = maxi[{left, i}] * maxi[{i + 1, right}];
-                        ans = min(ans, 
-                                + maxLeftRight
-                                + dp[left][i]
-                                + dp[i + 1][right]);
+                        ans = min(ans, maxLeftRight + dp[left][i] + dp[i + 1][right]);
                     }
                     dp[left][right] = ans;
                 }
