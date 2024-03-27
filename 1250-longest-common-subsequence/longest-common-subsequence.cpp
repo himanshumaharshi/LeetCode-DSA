@@ -1,0 +1,76 @@
+class Solution {
+public:
+    int solveUsingRecursion(string text1, string text2, int i, int j) {
+        // base case
+        if (i == text1.length()) {
+            return 0;
+        }
+        if (j == text2.length()) {
+            return 0;
+        }
+        
+        int ans = 0;
+        
+        if (text1[i] == text2[j]) {
+            // if characters of both strings at index i, j matches
+            ans = 1 + solveUsingRecursion(text1, text2, i + 1, j + 1);
+        }
+        else {
+            // if characters of both strings at index i, j doen not matches
+            ans = 0 + max(solveUsingRecursion(text1, text2, i, j + 1), solveUsingRecursion(text1, text2, i + 1, j));
+        }
+
+        return ans;
+    }
+
+    int memoizationSolve(string& text1, string& text2, int i, int j, vector<vector<int>>& dp) {
+        // base case
+        if (i == text1.length()) {
+            return 0;
+        }
+        if (j == text2.length()) {
+            return 0;
+        }
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        
+        int ans = 0;
+        
+        if (text1[i] == text2[j]) {
+            // if characters of both strings at index i, j matches
+            ans = 1 + memoizationSolve(text1, text2, i + 1, j + 1, dp);
+        }
+        else {
+            // if characters of both strings at index i, j doen not matches
+            ans = 0 + max(memoizationSolve(text1, text2, i, j + 1, dp), memoizationSolve(text1, text2, i + 1, j, dp));
+        }
+
+        dp[i][j] = ans;
+        return dp[i][j];
+    }
+
+    // int tabulationSolve(string text1, string text2) {
+    //     vector<vector<int>> dp(text1.length() + 1, vector<int>(text2.length() + 1, 0));
+    //     return 0;
+    // }
+
+    int longestCommonSubsequence(string text1, string text2) {
+        int i = 0;
+        int j = 0;
+
+        // -------- Recursive Approach --------
+        // T.C ---> Exponential (2 ^ n), S.C ---> O(n²)
+        // return solveUsingRecursion(text1, text2, i, j);
+
+        // -------- Dynamic Programming (Top Down Approach / Memoization)
+        // -------- T.C ---> O(n²), S.C ---> O(n²) (recursive stack + dp array)
+        // step 1: create dp array
+        vector<vector<int>> dp(text1.length() + 1, vector<int>(text2.length() + 1, -1));
+        return memoizationSolve(text1, text2, i, j, dp);
+
+        // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
+        // -------- T.C ---> O(n³), S.C ---> O(n²)
+        // return tabulationSolve(text1, text2);
+    }
+};
