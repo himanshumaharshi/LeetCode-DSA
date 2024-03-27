@@ -85,7 +85,7 @@ public:
         // return solveUsingRecursion(arr, maxi, 0, n - 1);
 
         // -------- Dynamic Programming (Top Down Approach / Memoization)
-        // -------- T.C ---> O(n³), S.C ---> O(n²) (recursive stack + dp array)
+        // -------- T.C ---> O(n²), S.C ---> O(n²) (recursive stack + dp array)
         // step 1: create dp array
         // vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
         // return memoizationSolve(arr, maxi, 0, n - 1, dp);
