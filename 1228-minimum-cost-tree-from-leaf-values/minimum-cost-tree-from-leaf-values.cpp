@@ -42,6 +42,34 @@ public:
         return dp[left][right];
     }
 
+    int tabulationSolve(vector<int>& arr, map<pair<int, int>, int>& maxi) {
+        // create dp array
+        int n = arr.size();
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+        
+        for (int left = n - 1; left >= 0; left--) {
+            for (int right = 0; right < n; right++) {
+                if (left >= right) {
+                    continue;
+                }
+                else {
+                    int ans = INT_MAX;
+                    // int maxLeftRight = 0;
+                    for (int i = left; i < right; i++) {
+                        // maxLeftRight = maxi[{left, i}] * maxi[{i + 1, right}];
+                        ans = min(ans, 
+                                + maxi[{left, i}] * maxi[{i + 1, right}]
+                                + dp[left][i]
+                                + dp[i + 1][right]);
+                    }
+                    dp[left][right] = ans;
+                }
+            }
+        }
+
+        return dp[0][n - 1];
+    }
+
     int mctFromLeafValues(vector<int>& arr) {
         map<pair<int, int>, int> maxi;
         // pre-compute all the maximum values for the every range in array
@@ -62,11 +90,11 @@ public:
         // -------- Dynamic Programming (Top Down Approach / Memoization)
         // -------- T.C ---> O(n³), S.C ---> O(n²) (recursive stack + dp array)
         // step 1: create dp array
-        vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
-        return memoizationSolve(arr, maxi, 0, n - 1, dp);
+        // vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
+        // return memoizationSolve(arr, maxi, 0, n - 1, dp);
 
         // -------- Dynamic Programming (Bottom Up Approach / Tabulation)
         // -------- T.C ---> O(n³), S.C ---> O(n²)
-        // return tabulationSolve(n);
+        return tabulationSolve(arr, maxi);
     }
 };
