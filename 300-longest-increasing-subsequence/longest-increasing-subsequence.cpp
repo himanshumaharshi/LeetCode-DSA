@@ -84,7 +84,6 @@ public:
             }
             nextRow = currRow;
         }
-
         return nextRow[0];
     }
 
@@ -128,10 +127,10 @@ public:
 
         // -------- Space Optimized Approach -------- 
         // T.C ---> O(n²), S.C ---> O(n)
-        return spaceOptimized(nums);
+        // return spaceOptimized(nums);
 
-        // -------- Space Optimized Approach -------- 
-        // T.C ---> O(n log n), S.C ---> O(n)
+        // -------- Optimal solution -------- 
+        // T.C ---> O(n log n) {n -> loop, log n -> lower_bound}, S.C ---> O(n)
         return optimalSolution(nums);
     }
 };
