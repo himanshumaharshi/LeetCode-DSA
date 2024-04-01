@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool check(vector<int> arr1, vector<int> arr2) {
+    bool check(vector<int>& arr1, vector<int>& arr2) {
         if (arr2[0] <= arr1[0] && arr2[1] <= arr1[1] && arr2[2] <= arr1[2]) {
             return true;
         }
