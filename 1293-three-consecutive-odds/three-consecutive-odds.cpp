@@ -1,21 +1,11 @@
 class Solution {
 public:
     bool threeConsecutiveOdds(vector<int>& arr) {
-        int i = 0;
-        int j = 2;
-        while (j < arr.size()) {
-            int count = 0;
-            for (int k = i; k <= j; k++) {
-                if (arr[k] % 2 != 0) {
-                    count++;
-                }
-            }
-            if (count == 3) {
-                return true;
-            }
-            i++;
-            j++;
-        }
+        // Loop through the array up to the third-to-last element
+        for (int i = 2; i < arr.size(); i++)
+            // Check if the product is odd
+            if (arr[i - 2] * arr[i - 1] * arr[i] % 2 == 1) return true;
+        
         return false;
     }
 };
