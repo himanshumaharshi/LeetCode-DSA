@@ -4,8 +4,11 @@ public:
         int operations = 0;
         for (int i = 0; i < logs.size(); ++i) {
             string str = logs[i];
-            if (str == "../")
-                operations = max(0, operations - 1);
+            if (str == "../" && operations >= 0) {
+                if (operations == 0)
+                    continue;
+                operations--;
+            }
             else if (str == "./")
                 continue;
             else {
